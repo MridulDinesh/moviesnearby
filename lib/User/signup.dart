@@ -13,6 +13,8 @@ class EmailAndPassword extends StatefulWidget {
 }
 
 class _EmailAndPasswordState extends State<EmailAndPassword> {
+  final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
@@ -24,6 +26,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
 
   Future<void> _register() async {
     try {
+      String name = _nameController.text.trim();
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
       String confirmPassword = _confirmPasswordController.text.trim();
@@ -46,6 +49,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
 // firestore
       final FirebaseFirestore _firestore = FirebaseFirestore.instance;
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'name': name,
         'email': email,
         'address': address,
         'phone': phone,
@@ -75,6 +79,13 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                ),
+              ),
+              SizedBox(height: 16.0),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(

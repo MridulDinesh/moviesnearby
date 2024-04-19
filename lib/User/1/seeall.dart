@@ -1,18 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CheckboxExample extends StatefulWidget {
-  @override
-  _CheckboxExampleState createState() => _CheckboxExampleState();
-}
-
-class _CheckboxExampleState extends State<CheckboxExample> {
+class CheckboxModel extends ChangeNotifier {
   bool? showMalayalam = false;
   bool? showEnglish = false;
   bool? showHindi = false;
 
+  void setShowMalayalam(bool value) {
+    showMalayalam = value;
+    notifyListeners();
+  }
+
+  void setShowEnglish(bool value) {
+    showEnglish = value;
+    notifyListeners();
+  }
+
+  void setShowHindi(bool value) {
+    showHindi = value;
+    notifyListeners();
+  }
+}
+
+class CheckboxExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => CheckboxModel(),
+      child: _CheckboxExample(),
+    );
+  }
+}
+
+class _CheckboxExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final checkboxModel = Provider.of<CheckboxModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,29 +47,23 @@ class _CheckboxExampleState extends State<CheckboxExample> {
           children: <Widget>[
             CheckboxListTile(
               title: Text('Malayalam'),
-              value: showMalayalam,
-              onChanged: (bool? value) {
-                setState(() {
-                  showMalayalam = value;
-                });
+              value: checkboxModel.showMalayalam,
+              onChanged: (value) {
+                checkboxModel.setShowMalayalam(value ?? false);
               },
             ),
             CheckboxListTile(
               title: Text('English'),
-              value: showEnglish,
-              onChanged: (bool? value) {
-                setState(() {
-                  showEnglish = value;
-                });
+              value: checkboxModel.showEnglish,
+              onChanged: (value) {
+                checkboxModel.setShowEnglish(value ?? false);
               },
             ),
             CheckboxListTile(
               title: Text('Hindi'),
-              value: showHindi,
-              onChanged: (bool? value) {
-                setState(() {
-                  showHindi = value;
-                });
+              value: checkboxModel.showHindi,
+              onChanged: (value) {
+                checkboxModel.setShowHindi(value ?? false);
               },
             ),
             SizedBox(height: 20),
@@ -54,7 +72,7 @@ class _CheckboxExampleState extends State<CheckboxExample> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (showMalayalam == true)
+                  if (checkboxModel.showMalayalam == true)
                     Row(
                       children: [
                         SizedBox(
@@ -76,7 +94,7 @@ class _CheckboxExampleState extends State<CheckboxExample> {
                         ),
                       ],
                     ),
-                  if (showEnglish == true)
+                  if (checkboxModel.showEnglish == true)
                     Row(
                       children: [
                         SizedBox(
@@ -107,7 +125,7 @@ class _CheckboxExampleState extends State<CheckboxExample> {
                         ),
                       ],
                     ),
-                  if (showHindi == true)
+                  if (checkboxModel.showHindi == true)
                     SizedBox(
                       width: screenWidth * 0.4,
                       child: Image.asset(
