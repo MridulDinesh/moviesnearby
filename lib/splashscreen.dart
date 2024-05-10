@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:moviesnearby/User/login.dart';
 
 class SplashScreen extends StatelessWidget {

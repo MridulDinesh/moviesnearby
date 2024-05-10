@@ -117,7 +117,7 @@ class _MyloginInState extends State<Mylogin> {
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      
+
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -137,7 +137,7 @@ class _MyloginInState extends State<Mylogin> {
                   TextField(
                     controller: _passwordController,
                     decoration: InputDecoration(
-        
+
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -172,8 +172,8 @@ class _MyloginInState extends State<Mylogin> {
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
-        
-        SizedBox(height: 20,),
+
+                  SizedBox(height: 20,),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => EmailAndPassword()));
@@ -189,7 +189,7 @@ class _MyloginInState extends State<Mylogin> {
                       ),
                     ),
                     child: Text('Don\'t have an account?'),
-        
+
                   ),
                   SizedBox(height: 10,),
                   TextButton(
@@ -203,17 +203,17 @@ class _MyloginInState extends State<Mylogin> {
                               accessToken: googleAuth.accessToken,
                               idToken: googleAuth.idToken,
                             );
-        
+
                             // Sign in to Firebase with Google credentials
                             final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-        
+
                             // Navigate to the user home page
                             if (userCredential.user != null) {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => UserBottomNavigationPage()),
                               );
-        
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text('Sign-in Successful with Google')),
                               );
@@ -228,7 +228,7 @@ class _MyloginInState extends State<Mylogin> {
                       child: Row(
                         children: [
                           SizedBox(width:70 ,),
-        
+
                           Text('Sign In with Google',style: TextStyle(color: Colors.black),),
                           SizedBox(width:10 ,),
                           Image.asset('assets/images/google.png',height: 20,width: 20,)

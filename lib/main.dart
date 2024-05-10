@@ -13,7 +13,8 @@ import 'package:moviesnearby/User/signup.dart';
 import 'package:moviesnearby/User/1/userhome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:moviesnearby/firebase_options.dart';
-import 'package:moviesnearby/splash.dart';
+import 'package:moviesnearby/splashscreen.dart';
+
 
 
 void main() async {
