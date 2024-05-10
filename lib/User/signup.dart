@@ -1,9 +1,7 @@
-import 'package:moviesnearby/Admin/login.dart';
-import 'package:moviesnearby/User/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:moviesnearby/User/login.dart';
 
 class EmailAndPassword extends StatefulWidget {
   const EmailAndPassword({Key? key}) : super(key: key);
@@ -14,13 +12,11 @@ class EmailAndPassword extends StatefulWidget {
 
 class _EmailAndPasswordState extends State<EmailAndPassword> {
   final TextEditingController _nameController = TextEditingController();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -33,33 +29,42 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
       String address = _addressController.text.trim();
       String phone = _phoneController.text.trim();
 
-
       if (password != confirmPassword) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Passwords do not match')),
         );
         return;
       }
-// crate ac
-      UserCredential userCredential =
-      await _auth.createUserWithEmailAndPassword(
+
+      // Create user with email and password
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-// firestore
+
+      // Store user details in Firestore
       final FirebaseFirestore _firestore = FirebaseFirestore.instance;
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'UserId': userCredential.user!.uid, // Store the user ID
         'name': name,
         'email': email,
         'address': address,
         'phone': phone,
-
       });
+
+      print('User details stored successfully');
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Registration Successful')),
       );
+
+      // Navigate to login screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Mylogin()),
+      );
     } catch (e) {
+      print('Error registering user: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to register: $e')),
       );
@@ -83,65 +88,75 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                 controller: _nameController,
                 decoration: InputDecoration(
                   labelText: 'Name',
+                  prefixIcon: Icon(Icons.person, color: Colors.blue),
                 ),
+                style: TextStyle(color: Colors.blue), // Change text color to blue
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
+                  prefixIcon: Icon(Icons.email, color: Colors.blue),
                 ),
+                style: TextStyle(color: Colors.blue), // Change text color to blue
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  prefixIcon: Icon(Icons.lock, color: Colors.blue),
                 ),
                 obscureText: true,
+                style: TextStyle(color: Colors.blue), // Change text color to blue
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _confirmPasswordController,
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
+                  prefixIcon: Icon(Icons.lock, color: Colors.blue),
                 ),
                 obscureText: true,
+                style: TextStyle(color: Colors.blue), // Change text color to blue
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _addressController,
                 decoration: InputDecoration(
                   labelText: 'Address',
+                  prefixIcon: Icon(Icons.location_on, color: Colors.blue),
                 ),
+                style: TextStyle(color: Colors.blue), // Change text color to blue
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _phoneController,
                 decoration: InputDecoration(
                   labelText: 'Phone',
+                  prefixIcon: Icon(Icons.phone, color: Colors.blue),
                 ),
+                style: TextStyle(color: Colors.blue), // Change text color to blue
               ),
-              SizedBox(height: 16.0),
               SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _register,
-                child: Text('Register'),
+                child: Text('Register',style: TextStyle(color: Colors.blue),),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Mylogin()));
+                    context,
+                    MaterialPageRoute(builder: (context) => Mylogin()),
+                  );
                 },
-                child: Text("Already have account User Login"),
+                child: Text("Already have an account? Login",style: TextStyle(color: Colors.blue)),
               ),
-
             ],
           ),
         ),
-      ),
+      )
     );
   }
 }

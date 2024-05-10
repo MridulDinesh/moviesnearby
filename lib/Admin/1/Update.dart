@@ -3,16 +3,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moviesnearby/Admin/1/UpdateDetails.dart';
 import 'package:moviesnearby/Admin/1/adminhome.dart';
 
-
 class AdminUpdateHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(actions: [
-        IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigationPage()));
-        }, icon: Icon(Icons.exit_to_app))
-      ],
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigationPage()));
+            },
+            icon: Icon(Icons.exit_to_app),
+          )
+        ],
         title: Text('Credential Data'),
       ),
       body: StreamBuilder(
@@ -31,12 +36,21 @@ class AdminUpdateHome extends StatelessWidget {
               String phone = data['phone'] ?? ''; // Provide default value if phone is null
 
               return ListTile(
-                title: Text(email),
+                title: Text(
+                  email,
+                  style: TextStyle(fontSize: screenSize.width * 0.04), // Adjust font size based on screen width
+                ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Address: $address'),
-                    Text('Phone: $phone'),
+                    Text(
+                      'Address: $address',
+                      style: TextStyle(fontSize: screenSize.width * 0.035), // Adjust font size based on screen width
+                    ),
+                    Text(
+                      'Phone: $phone',
+                      style: TextStyle(fontSize: screenSize.width * 0.035), // Adjust font size based on screen width
+                    ),
                   ],
                 ),
                 trailing: Row(

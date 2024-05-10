@@ -13,7 +13,6 @@ class Update extends StatefulWidget {
     required this.email,
     required this.address,
     required this.phone,
-
   }) : super(key: key);
 
   @override
@@ -24,44 +23,45 @@ class _UpdateState extends State<Update> {
   late TextEditingController _addressController;
   late TextEditingController _phoneController;
 
-
   @override
   void initState() {
     super.initState();
     _addressController = TextEditingController(text: widget.address);
     _phoneController = TextEditingController(text: widget.phone);
-
-
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Update User Info'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenSize.width * 0.05), // Adjust padding based on screen width
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Email: ${widget.email}'),
+            Text(
+              'Email: ${widget.email}',
+              style: TextStyle(fontSize: screenSize.width * 0.04), // Adjust font size based on screen width
+            ),
             TextField(
               controller: _addressController,
-              decoration: InputDecoration(labelText: 'Address'),
+              decoration: InputDecoration(labelText: 'Address', contentPadding: EdgeInsets.symmetric(vertical: screenSize.width * 0.02)), // Adjust content padding based on screen width
             ),
             TextField(
               controller: _phoneController,
-              decoration: InputDecoration(labelText: 'Phone'),
+              decoration: InputDecoration(labelText: 'Phone', contentPadding: EdgeInsets.symmetric(vertical: screenSize.width * 0.02)), // Adjust content padding based on screen width
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: screenSize.width * 0.04), // Adjust sized box height based on screen width
             ElevatedButton(
               onPressed: () {
                 // Update user info in Firestore
                 FirebaseFirestore.instance.collection('users').doc(widget.documentId).update({
                   'address': _addressController.text,
                   'phone': _phoneController.text,
-
                 }).then((value) {
                   // Navigate back to previous page
                   Navigator.pop(context);
@@ -70,7 +70,10 @@ class _UpdateState extends State<Update> {
                   // Handle error
                 });
               },
-              child: Text('Update'),
+              child: Text(
+                'Update',
+                style: TextStyle(fontSize: screenSize.width * 0.04), // Adjust font size based on screen width
+              ),
             ),
           ],
         ),

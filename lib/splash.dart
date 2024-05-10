@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:moviesnearby/Home.dart';
+import 'package:moviesnearby/User/login.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -10,30 +10,39 @@ class SplashScreen extends StatelessWidget {
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => Myhome(),
+          builder: (_) => Mylogin(),
         ),
       );
     });
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            double fontSize = MediaQuery.of(context).size.width * 0.06;
-            if (fontSize > 24.0) {
-              fontSize = 24.0;
-            }
+      body: Container( decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.blue, Colors.white],
+          stops: [0.0, 0.7], // Adjust stops as needed
+        ),
+      ),
+        child: Center(
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              double fontSize = MediaQuery.of(context).size.width * 0.06;
+              if (fontSize > 24.0) {
+                fontSize = 24.0;
+              }
 
-            return Text(
-              'Movies Nearby',
-              style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            );
-          },
+              return Text(
+                'Movies Nearby',
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

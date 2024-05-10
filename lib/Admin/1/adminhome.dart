@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:moviesnearby/Admin/1/AddMovies.dart';
 import 'package:moviesnearby/Admin/1/Update.dart';
 import 'package:moviesnearby/Admin/login.dart';
 import 'package:moviesnearby/User/login.dart';
@@ -19,7 +20,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Mylogin()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Mylogin()));
             },
             icon: Icon(Icons.exit_to_app),
           )
@@ -31,6 +32,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         children: [
           ViewCredentialsPage(),
           ViewTicketsPage(),
+          Addmoviedetails(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -49,6 +51,10 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             icon: Icon(Icons.credit_card_sharp),
             label: 'View Tickets',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Add Movies',
+          ),
         ],
       ),
     );
@@ -66,7 +72,11 @@ class ViewCredentialsPage extends StatelessWidget {
           },
           child: Text(
             'View Credentials',
-            style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.08, fontWeight: FontWeight.bold, color: Colors.black),
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.08, // Adjust font size based on screen width
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
         ),
       ),
@@ -79,7 +89,7 @@ class ViewTicketsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('TICKET DETAILS').snapshots(),
+        stream: FirebaseFirestore.instance.collection('TICKET_DETAILS').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -93,31 +103,49 @@ class ViewTicketsPage extends StatelessWidget {
                 color: Colors.yellowAccent, // Set card color to red
                 child: ListTile(
                   title: Text(
-                    'User ID: ${data['User ID']}',
-                    style: TextStyle(color: Colors.brown), // Set text color to black
+                    'User ID: ${data['userId']}',
+                    style: TextStyle(
+                      color: Colors.brown,
+                      fontSize: MediaQuery.of(context).size.width * 0.04, // Adjust font size based on screen width
+                    ),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Date: ${data['Date']}',
-                        style: TextStyle(color: Colors.brown), // Set text color to black
+                        'Date: ${data['date']}',
+                        style: TextStyle(
+                          color: Colors.brown,
+                          fontSize: MediaQuery.of(context).size.width * 0.035, // Adjust font size based on screen width
+                        ),
                       ),
                       Text(
                         'Time: ${data['time']}',
-                        style: TextStyle(color: Colors.brown), // Set text color to black
+                        style: TextStyle(
+                          color: Colors.brown,
+                          fontSize: MediaQuery.of(context).size.width * 0.035, // Adjust font size based on screen width
+                        ),
                       ),
                       Text(
-                        'Theatre Name: ${data['Theatre Name']}',
-                        style: TextStyle(color: Colors.brown), // Set text color to black
+                        'Theatre Name: ${data['theatre']}',
+                        style: TextStyle(
+                          color: Colors.brown,
+                          fontSize: MediaQuery.of(context).size.width * 0.035, // Adjust font size based on screen width
+                        ),
                       ),
                       Text(
-                        'Movie Name: ${data['MOVIE NAME']}',
-                        style: TextStyle(color: Colors.brown), // Set text color to black
+                        'Movie Name: ${data['movieName']}',
+                        style: TextStyle(
+                          color: Colors.brown,
+                          fontSize: MediaQuery.of(context).size.width * 0.035, // Adjust font size based on screen width
+                        ),
                       ),
                       Text(
-                        'Number of Tickets: ${data['Number of tickets']}',
-                        style: TextStyle(color: Colors.brown), // Set text color to black
+                        'Number of Tickets: ${data['numberOfTickets']}',
+                        style: TextStyle(
+                          color: Colors.brown,
+                          fontSize: MediaQuery.of(context).size.width * 0.035, // Adjust font size based on screen width
+                        ),
                       ),
                     ],
                   ),

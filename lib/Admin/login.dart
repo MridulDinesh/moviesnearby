@@ -4,8 +4,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:moviesnearby/Admin/1/adminhome.dart';
+import 'package:moviesnearby/User/login.dart';
 import 'package:moviesnearby/firebase_options.dart';
-import 'package:moviesnearby/Home.dart';
+
 
 
 class Myadminlogin extends StatefulWidget {
@@ -49,7 +50,7 @@ class _MyadminloginInState extends State<Myadminlogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(actions: [IconButton(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>Myhome()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Mylogin()));
       }, icon: Icon(Icons.exit_to_app))],
         title: Text('Sign In'),
       ),

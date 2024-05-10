@@ -38,7 +38,7 @@ dependencies:
   firebase_core: ^2.27.2
   firebase_auth: ^4.18.0
   cloud_firestore: ^4.15.9
-  google_sign_in: ^5.2.1
+  google_sign_in: ^6.2.1
   firebase_storage: ^11.6.11
   carousel_slider:
   dots_indicator:
@@ -46,6 +46,11 @@ dependencies:
   provider: ^6.1.2
   shared_preferences:
   flutter_native_splash: ^1.2.1
+  firebase_database: ^10.5.2
+  image_picker: ^1.1.0
+  youtube_player_flutter: ^8.0.0
+  flip_card: ^0.5.0
+
 
 dev_dependencies:
   flutter_test:
